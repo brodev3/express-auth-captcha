@@ -3,6 +3,10 @@ import { describe, expect, it } from "vitest";
 import { createApp } from "../../src/app.js";
 
 describe("app factory", () => {
+  it("trusts the first reverse proxy for secure production cookies", () => {
+    expect(createApp().get("trust proxy")).toBe(1);
+  });
+
   it("serves the health endpoint", async () => {
     const response = await request(createApp()).get("/health");
 

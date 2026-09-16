@@ -5,6 +5,7 @@ import path from "node:path";
 import request from "supertest";
 import { afterEach, describe, expect, it } from "vitest";
 
+import { createApp } from "../../src/app.js";
 import { loadConfig } from "../../src/config.js";
 import {
   closeDatabase,
@@ -86,5 +87,41 @@ describe("SQLite-backed sessions", () => {
     expect(setCookie).toContain("Expires=");
     expect(setCookie).not.toContain("test-only-session-secret");
     expect(setCookie).not.toContain("test-user");
+  });
+
+  it("sets a secure cookie behind a trusted HTTPS proxy in production", async () => {
+    temporaryDirectory = await mkdtemp(path.join(os.tmpdir(), "express-auth-captcha-proxy-"));
+    database = await openDatabase(path.join(temporaryDirectory, "app.sqlite"));
+
+    const sessionSetup = createSessionMiddleware({
+      database,
+      nodeEnv: "production",
+      secret: "test-only-session-secret-not-for-production",
+    });
+    await sessionSetup.ready;
+
+    const app = createApp({
+      sessionMiddleware: (httpRequest, httpResponse, next) => {
+        sessionSetup.middleware(httpRequest, httpResponse, () => {
+          httpRequest.session.auth = {
+            userId: 42,
+            username: "test-user",
+          };
+          next();
+        });
+      },
+    });
+    const response = await request(app)
+      .get("/health")
+      .set("X-Forwarded-Proto", "https");
+    const rawSetCookie = response.headers["set-cookie"];
+    const setCookie = Array.isArray(rawSetCookie)
+      ? rawSetCookie.join(";")
+      : (rawSetCookie ?? "");
+
+    expect(response.status).toBe(200);
+    expect(setCookie).toContain("auth.sid=");
+    expect(setCookie).toContain("Secure");
+    expect(setCookie).toContain("HttpOnly");
   });
 });

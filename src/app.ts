@@ -22,6 +22,7 @@ export function createApp(options: AppOptions = {}): Express {
   const projectRoot = options.projectRoot ?? fileURLToPath(new URL("../", import.meta.url));
   const app = express();
 
+  app.set("trust proxy", 1);
   app.set("view engine", "ejs");
   app.set("views", path.join(projectRoot, "views"));
 
