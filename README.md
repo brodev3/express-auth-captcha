@@ -5,6 +5,8 @@
 математической CAPTCHA. Интерфейс отрисовывается на сервере и не требует
 frontend-фреймворка.
 
+Демо: [express-auth-captcha.onrender.com/login](https://express-auth-captcha.onrender.com/login)
+
 ## Возможности
 
 - регистрация с независимой клиентской и серверной валидацией;
