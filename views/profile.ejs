@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="card profile-card">
+        <header class="page-header">
+          <h1><%= title %></h1>
+          <p class="intro">Добро пожаловать, <%= username %>!</p>
+        </header>
+
+        <dl>
+          <dt>Email</dt>
+          <dd><%= email %></dd>
+          <dt>Дата регистрации</dt>
+          <dd><%= createdAt %></dd>
+          <dt>Роль</dt>
+          <dd><%= role %></dd>
+        </dl>
+
+        <form method="post" action="/logout">
+          <button type="submit">Выйти</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

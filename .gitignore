@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+docs/*
+!docs/requirements.md
+
+.env
+.env.*
+!.env.example
+
+data/*.sqlite
+data/*.sqlite-*
+*.log
+npm-debug.log*
+
+.DS_Store
+Thumbs.db

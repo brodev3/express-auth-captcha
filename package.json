@@ -1,0 +1,40 @@
+{
+  "name": "express-auth-captcha",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Server-rendered authentication service with a mathematical CAPTCHA",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "connect-sqlite3": "^0.9.17",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.1",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.15.3",
+    "@types/supertest": "^6.0.2",
+    "eslint": "^9.25.1",
+    "supertest": "^7.1.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1",
+    "vitest": "^3.1.2"
+  }
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/forms.js" defer></script>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="card auth-card">
+        <header class="page-header">
+          <h1><%= title %></h1>
+          <p class="intro">Войдите, чтобы открыть профиль.</p>
+        </header>
+
+      <% if (flash) { %>
+        <p class="flash-message" role="status" aria-live="polite"><%= flash.message %></p>
+      <% } %>
+
+      <% if (message) { %>
+        <p class="form-message" role="alert" aria-live="assertive"><%= message %></p>
+      <% } %>
+
+      <form class="form" method="post" action="/login" data-validation="login">
+        <div class="field">
+          <label for="login">Имя пользователя или email</label>
+          <input
+            id="login"
+            name="login"
+            type="text"
+            value="<%= form.login %>"
+            maxlength="100"
+            autocomplete="username"
+            required
+            aria-invalid="<%= errors.login ? 'true' : 'false' %>"
+            aria-describedby="login-error"
+          />
+          <p id="login-error" class="field-error" aria-live="polite"<% if (!errors.login) { %> hidden<% } %>><%= errors.login || "" %></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            aria-invalid="<%= errors.password ? 'true' : 'false' %>"
+            aria-describedby="password-error"
+          />
+          <p id="password-error" class="field-error" aria-live="polite"<% if (!errors.password) { %> hidden<% } %>><%= errors.password || "" %></p>
+        </div>
+
+        <div class="field captcha-box">
+          <p id="captcha-question"><%= captcha.question %></p>
+          <input type="hidden" name="captchaId" value="<%= captcha.captchaId %>" />
+          <label for="captchaAnswer">Ответ</label>
+          <input
+            id="captchaAnswer"
+            name="captchaAnswer"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            autocomplete="off"
+            required
+            aria-invalid="<%= errors.captchaAnswer ? 'true' : 'false' %>"
+            aria-describedby="captchaAnswer-error"
+          />
+          <p id="captchaAnswer-error" class="field-error" aria-live="polite"<% if (!errors.captchaAnswer) { %> hidden<% } %>><%= errors.captchaAnswer || "" %></p>
+        </div>
+
+        <button type="submit">Войти</button>
+      </form>
+
+        <p class="secondary-link">Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+      </section>
+    </main>
+  </body>
+</html>

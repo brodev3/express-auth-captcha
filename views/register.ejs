@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/forms.js" defer></script>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="card auth-card">
+        <header class="page-header">
+          <h1><%= title %></h1>
+          <p class="intro">Создайте аккаунт, чтобы войти в сервис.</p>
+        </header>
+
+      <form class="form" method="post" action="/register" data-validation="register">
+        <div class="field">
+          <label for="username">Имя пользователя</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            value="<%= form.username %>"
+            minlength="3"
+            maxlength="20"
+            pattern="[A-Za-z0-9]+"
+            autocomplete="username"
+            required
+            aria-invalid="<%= errors.username ? 'true' : 'false' %>"
+            aria-describedby="username-error"
+          />
+          <p id="username-error" class="field-error" aria-live="polite"<% if (!errors.username) { %> hidden<% } %>><%= errors.username || "" %></p>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            value="<%= form.email %>"
+            maxlength="100"
+            autocomplete="email"
+            required
+            aria-invalid="<%= errors.email ? 'true' : 'false' %>"
+            aria-describedby="email-error"
+          />
+          <p id="email-error" class="field-error" aria-live="polite"<% if (!errors.email) { %> hidden<% } %>><%= errors.email || "" %></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            minlength="6"
+            maxlength="128"
+            autocomplete="new-password"
+            required
+            aria-invalid="<%= errors.password ? 'true' : 'false' %>"
+            aria-describedby="password-error"
+          />
+          <p id="password-error" class="field-error" aria-live="polite"<% if (!errors.password) { %> hidden<% } %>><%= errors.password || "" %></p>
+        </div>
+
+        <div class="field">
+          <label for="passwordConfirmation">Подтверждение пароля</label>
+          <input
+            id="passwordConfirmation"
+            name="passwordConfirmation"
+            type="password"
+            minlength="6"
+            maxlength="128"
+            autocomplete="new-password"
+            required
+            aria-invalid="<%= errors.passwordConfirmation ? 'true' : 'false' %>"
+            aria-describedby="passwordConfirmation-error"
+          />
+          <p id="passwordConfirmation-error" class="field-error" aria-live="polite"<% if (!errors.passwordConfirmation) { %> hidden<% } %>><%= errors.passwordConfirmation || "" %></p>
+        </div>
+
+        <div class="field captcha-box">
+          <p id="captcha-question"><%= captcha.question %></p>
+          <input type="hidden" name="captchaId" value="<%= captcha.captchaId %>" />
+          <label for="captchaAnswer">Ответ</label>
+          <input
+            id="captchaAnswer"
+            name="captchaAnswer"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            autocomplete="off"
+            required
+            aria-invalid="<%= errors.captchaAnswer ? 'true' : 'false' %>"
+            aria-describedby="captchaAnswer-error"
+          />
+          <p id="captchaAnswer-error" class="field-error" aria-live="polite"<% if (!errors.captchaAnswer) { %> hidden<% } %>><%= errors.captchaAnswer || "" %></p>
+        </div>
+
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+
+        <p class="secondary-link">Уже есть аккаунт? <a href="/login">Войти</a></p>
+      </section>
+    </main>
+  </body>
+</html>
