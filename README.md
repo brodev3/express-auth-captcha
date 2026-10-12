@@ -1,5 +1,7 @@
 # Сервис аутентификации с CAPTCHA
 
+[![CI](https://github.com/brodev3/express-auth-captcha/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/brodev3/express-auth-captcha/actions/workflows/ci.yml)
+
 Тестовое веб-приложение на Express 5 и TypeScript с регистрацией и входом по
 username или email. Реализованы серверные сессии, защищённый профиль, выход
 из системы и одноразовая математическая CAPTCHA. Интерфейс отрисовывается
@@ -121,6 +123,12 @@ npm run build
 
 Тесты используют временные SQLite-базы и проверяют валидацию, CAPTCHA,
 регистрацию, вход, сессии, контроль доступа, профиль и logout.
+
+GitHub Actions выполняет проверку типов, lint, тесты и сборку на Ubuntu с Node.js
+22.x при push, pull request и ручном запуске. CI использует `npm ci` и
+`NODE_ENV=test`; рабочая база, публичное демо и репозиторные secrets не нужны.
+В CI команда `npm test -- --no-passWithNoTests` также завершится ошибкой, если
+Vitest не обнаружит ни одного теста.
 
 ## Устройство проекта
 
